@@ -5,6 +5,7 @@ const config = require("./config");
 const connect = require("./lib/connection");
 const { getandRequirePlugins } = require("./lib/db/plugins");
 const aes256 = require("aes256");
+const { SESSION_VALIDATOR } = require("./config");
 
 let plaintext = config.SESSION_ID.replaceAll("bixby~", "");
 let key = 'bixbyneverdies';
