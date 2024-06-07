@@ -5,9 +5,9 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/DX-MODS/bixby-latest.git /APEX
+RUN git clone https://github.com/DX-MODS/bixby-latest.git /Bixby
 
-WORKDIR /APEX
+WORKDIR /Bixby
 
 RUN npm install
 
