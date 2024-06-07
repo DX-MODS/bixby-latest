@@ -1,5 +1,5 @@
 const {
-  command,
+  Bixby,
   fromMe,
   sleep,
   isPrivate
@@ -47,7 +47,7 @@ function formatTime(seconds) {
 
 
 
-command({
+Bixby({
       pattern: "ping",
       fromMe: isPrivate,
       desc: "To check ping",
@@ -92,7 +92,7 @@ command({
       }
   }
 );
-command({
+Bixby({
       pattern: "uptime",
       fromMe: isPrivate,
       desc: "To check uptime",
@@ -137,7 +137,7 @@ command({
 
 
 
-command({
+Bixby({
     pattern: "iswa",
     fromMe: isPrivate,
     desc: "To check uptime",
