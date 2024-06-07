@@ -1,6 +1,6 @@
 {
-  "name": "aurora",
-  "version": "2.0.0",
+  "name": "WhatsBixby",
+  "version": "3.5.8",
   "description": "Whatsapp Bot",
   "main": "index.js",
   "directories": {
@@ -8,12 +8,12 @@
   },
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
+    "@whiskeysockets/baileys": "6.6.0",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@ffprobe-installer/ffprobe": "^2.1.2",
     "@google/generative-ai": "^0.5.0",
     "@hapi/boom": "^10.0.1",
     "@neeraj-x0/nodetoolkit": "^1.0.3",
-    "@whiskeysockets/baileys": "6.6.0",
     "acrcloud": "^1.4.0",
     "axios": "^1.4.0",
     "bitly": "^4.1.1",
