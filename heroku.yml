@@ -3,4 +3,4 @@ run:
 
  build:
   docker:
-      worker: /Dockerfile
+      worker: /lib/Dockerfile
