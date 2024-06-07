@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const toBool = (x) => x === "true";
 
-const DATABASE_URL = process.env.DATABASE_URL || "./assets/database.db";
+const DATABASE_URL = process.env.DATABASE_URL || "./lib/db/database.db";
 
 module.exports = {
   PORT: process.env.PORT || 8000,
