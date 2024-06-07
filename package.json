@@ -1,19 +1,35 @@
 {
   "name": "WhatsBixby",
-  "version": "3.5.8",
-  "description": "Whatsapp Bot",
+  "version": "3.6.0",
+  "description": "WhatsApp Bot with many advanced features",
   "main": "index.js",
-  "directories": {
-    "lib": "lib"
+  "scripts": {
+    "start": "node server.js",
+    "main": "node index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DX-MODS/WhatsBixby.git"
+  },
+  "keywords": [
+    "whatsapp",
+    "bot"
+  ],
+  "author": "DX-MODS",
+  "developer": "Ziyan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DX-MODS/WhatsBixby/issues"
+  },
+  "homepage": "https://github.com/DX-MODS/WhatsBixby#readme",
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",
-    "@whiskeysockets/baileys": "6.6.0",
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@ffprobe-installer/ffprobe": "^2.1.2",
     "@google/generative-ai": "^0.5.0",
     "@hapi/boom": "^10.0.1",
     "@neeraj-x0/nodetoolkit": "^1.0.3",
+    "@whiskeysockets/baileys": "6.6.0",
     "acrcloud": "^1.4.0",
     "axios": "^1.4.0",
     "bitly": "^4.1.1",
@@ -56,23 +72,5 @@
     "archiver":"^7.0.1",
     "request":"^2.88.2",
     "axios-retry":"^3.1.9"
-    },
-  "scripts": {
-    "start": "node server.js",
-    "main": "node index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Alien-Alfa/APEX-WHATSAPP-BOT.git"
-  },
-  "keywords": [
-    "bot",
-    "whatsapp"
-  ],
-  "author": "Neeraj-x0",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Alien-Alfa/APEX-WHATSAPP-BOT/issues"
-  },
-  "homepage": "https://github.com/Alien-Alfa/APEX-WHATSAPP-BOT#readme"
+    }
 }
