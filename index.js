@@ -3,21 +3,20 @@ const fsx = require("fs");
 const path = require("path");
 const config = require("./config");
 const connect = require("./lib/connection");
-const { getandRequirePlugins } = require("./assets/database/plugins");
-const { UpdateLocal, WriteSession} = require("./lib");
-
+const { getandRequirePlugins } = require("./lib/db/plugins");
+const aes256 = require("aes256");
 global.__basedir = __dirname;
 
-async function auth() {
-  try {
-    if (!fsx.existsSync("./session/creds.json")) {
-      await WriteSession();
-    }
-    return initialize();
-  } catch (error) {
-    console.error("AuthFile Generation Error:", error);
-    return process.exit(1);
-  }
+
+let plaintext = config.SESSION_ID.replaceAll("bixby~", "");
+let key = 'bixbyneverdies';
+let decryptedPlainText = aes256.decrypt(key, plaintext);
+async function md() {
+    let {
+        body
+    } = await got(`${SESSION_VALIDATOR}server/session?id=${decryptedPlainText}`)
+    let result = JSON.parse(body).result[0].data;
+    fs.writeFileSync("./lib/auth_info_baileys/creds.json", result);
 }
 
 async function readAndRequireFiles(directory) {
@@ -51,4 +50,4 @@ async function initialize() {
   }
 }
 
-auth();
+md();
