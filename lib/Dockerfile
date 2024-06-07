@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/Alien-Alfa/WhatsBotAlfa-MD.git /APEX
+RUN git clone https://github.com/DX-MODS/bixby-latest.git /APEX
 
 WORKDIR /APEX
 
