@@ -42,7 +42,7 @@ module.exports = {
   DELETED_LOG: true,
   DATABASE_URL: DATABASE_URL,
   DATABASE:
-    DATABASE_URL === "./assets/database.db"
+    DATABASE_URL === "./lib/db/database.db"
       ? new Sequelize({
           dialect: "sqlite",
           storage: DATABASE_URL,
