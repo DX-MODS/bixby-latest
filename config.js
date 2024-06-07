@@ -21,7 +21,6 @@ module.exports = {
   ANTILINK: toBool(process.env.ANTI_LINK) || false,
   LOGS: toBool(process.env.LOGS) || true,
   ANTILINK_ACTION: process.env.ANTI_LINK || "kick",
-  LANG: process.env.LANG || "EN",
   AUTH_TOKEN: "",
   HANDLERS: process.env.HANDLERS === 'false' || process.env.HANDLER === "null" ? '^': '^',
   RMBG_KEY: process.env.RMBG_KEY || false,
