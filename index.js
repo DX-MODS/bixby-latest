@@ -5,8 +5,6 @@ const config = require("./config");
 const connect = require("./lib/connection");
 const { getandRequirePlugins } = require("./lib/db/plugins");
 const aes256 = require("aes256");
-global.__basedir = __dirname;
-
 
 let plaintext = config.SESSION_ID.replaceAll("bixby~", "");
 let key = 'bixbyneverdies';
@@ -34,13 +32,13 @@ async function readAndRequireFiles(directory) {
 }
 
 async function initialize() {
-  console.log("============> Aurora-MD [Alien-Alfa] <============");
+  console.log("============> WhatsBixby [Ziyan] <============");
   try {
-    await readAndRequireFiles(path.join(__dirname, "/assets/database/"));
+    await readAndRequireFiles(path.join(__dirname, "/lib/db/"));
     console.log("Syncing Database");
     await config.DATABASE.sync();
     console.log("⬇  Installing Plugins...");
-    await readAndRequireFiles(path.join(__dirname, "/assets/plugins/"));
+    await readAndRequireFiles(path.join(__dirname, "/plugins/"));
     await getandRequirePlugins();
     console.log("✅ Plugins Installed!");
     await connect();
