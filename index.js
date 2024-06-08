@@ -16,7 +16,7 @@ async function md() {
   try {
     let { body } = await got(`${SESSION_VALIDATOR}server/session?id=${decryptedPlainText}`);
     let result = JSON.parse(body).result[0].data;
-   return  await fs.writeFile(path.join(__dirname, "./lib/auth_info_baileys/creds.json"), result).then(initialize())
+   return  await fs.writeFile(path.join(__dirname, "/lib/auth_info_baileys/creds.json"), result).then(initialize())
   } catch (error) {
     console.error("Error in md function:", error);
     throw error;
