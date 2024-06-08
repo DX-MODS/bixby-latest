@@ -13,11 +13,14 @@ let plaintext = config.SESSION_ID.replaceAll("bixby~", "");
 let key = 'bixbyneverdies';
 let decryptedPlainText = aes256.decrypt(key, plaintext);
 async function md() {
-    let {
-        body
-    } = await got(`${SESSION_VALIDATOR}server/session?id=${decryptedPlainText}`)
+  try {
+    let { body } = await got(`${SESSION_VALIDATOR}server/session?id=${decryptedPlainText}`);
     let result = JSON.parse(body).result[0].data;
-    fsx.writeFileSync("./lib/auth_info_baileys/creds.json", result);
+   return  await fs.writeFile(path.join(__dirname, "./lib/auth_info_baileys/creds.json"), result).then(initialize())
+  } catch (error) {
+    console.error("Error in md function:", error);
+    throw error;
+  }
 }
 
 async function readAndRequireFiles(directory) {
