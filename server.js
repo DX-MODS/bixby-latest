@@ -149,7 +149,7 @@ app.post('/feksession', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'lib/Messages/index.html'));
+    res.sendFile(path.join(__dirname, 'lib/base/index.html'));
 });
 
 app.listen(port, () => console.log(`cortana Server listening on port http://localhost:${port}`));
