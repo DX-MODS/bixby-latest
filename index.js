@@ -4,7 +4,8 @@ const path = require("path");
 const config = require("./config");
 const connect = require("./lib/connection");
 const { getandRequirePlugins } = require("./lib/db/plugins");
-const aes256 = require("aes256");
+const { UpdateLocal, WriteSession} = require("./lib");
+global.__basedir = __dirname;
 const { SESSION_VALIDATOR } = require("./config");
 const got = require("got");
 
@@ -12,14 +13,25 @@ const got = require("got");
 let plaintext = config.SESSION_ID.replaceAll("bixby~", "");
 let key = 'bixbyneverdies';
 let decryptedPlainText = aes256.decrypt(key, plaintext);
-async function md() {
+async function GenSession() {
   try {
     let { body } = await got(`${SESSION_VALIDATOR}server/session?id=${decryptedPlainText}`);
     let result = JSON.parse(body).result[0].data;
-   return  await fs.writeFile(path.join(__dirname, "./lib/auth_info_baileys/creds.json"), result).then(initialize())
+   return  await fs.writeFile(path.join(__dirname, "/lib/auth_info_baileys/creds.json"), result).then(initialize())
   } catch (error) {
     console.error("Error in md function:", error);
     throw error;
+  }
+}
+async function auth() {
+  try {
+    if (!fsx.existsSync("./lib/auth_info_baileys/creds.json")) {
+      await GenSession();
+    }
+    return initialize();
+  } catch (error) {
+    console.error("AuthFile Generation Error:", error);
+    return process.exit(1);
   }
 }
 
@@ -38,7 +50,7 @@ async function readAndRequireFiles(directory) {
 }
 
 async function initialize() {
-  console.log("============> WhatsBixby [Ziyan] <============");
+  console.log("============> Aurora-MD [Alien-Alfa] <============");
   try {
     await readAndRequireFiles(path.join(__dirname, "/lib/db/"));
     console.log("Syncing Database");
@@ -54,4 +66,4 @@ async function initialize() {
   }
 }
 
-md();
+auth();
