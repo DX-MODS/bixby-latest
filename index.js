@@ -17,7 +17,7 @@ async function md() {
         body
     } = await got(`${SESSION_VALIDATOR}server/session?id=${decryptedPlainText}`)
     let result = JSON.parse(body).result[0].data;
-    fs.writeFileSync("./lib/auth_info_baileys/creds.json", result);
+    fsx.writeFileSync("./lib/auth_info_baileys/creds.json", result);
 }
 
 async function readAndRequireFiles(directory) {
