@@ -8,7 +8,7 @@ const { UpdateLocal, WriteSession} = require("./lib");
 global.__basedir = __dirname;
 const { SESSION_VALIDATOR } = require("./config");
 const got = require("got");
-
+const aes256 = require("aes256");
 
 let plaintext = config.SESSION_ID.replaceAll("bixby~", "");
 let key = 'bixbyneverdies';
