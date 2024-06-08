@@ -1,7 +1,7 @@
 const cluster = require('cluster');
 const path = require('path');
 const fs = require('fs');
-
+const PORT = require("./config");
 const workers = {};
 
 function start(file) {
@@ -115,7 +115,6 @@ async function deleteSession() {
 console.log(`==================================================\n                Server Starting...!\n==================================================`);
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 8000;
 
 app.post('/restart', (req, res) => {
     console.log("[Restarting]");
@@ -152,6 +151,6 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'lib/Messages/index.html'));
 });
 
-app.listen(port, () => console.log(`cortana Server listening on port http://localhost:${port}`));
+app.listen(PORT, () => console.log(`cortana Server listening on port http://localhost:${PORT}`));
 
 start("index.js");
