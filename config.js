@@ -38,7 +38,7 @@ module.exports = {
   BOT_NAME: process.env.BOT_NAME || "𝙒𝞖𝞓𝙏𝙎 𝞑𝞘𝞦𝞑𝙔",
   WORK_TYPE: process.env.WORK_TYPE || "public",
   DELETED_LOG_CHAT: "120363084228202932@g.us",
-  DELETED_LOG: true,
+  DELETED_LOG: toBool(process.env.DELETED_LOG) || false,
   DATABASE_URL: DATABASE_URL,
   DATABASE:
     DATABASE_URL === "./lib/db/database.db"
