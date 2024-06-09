@@ -1,9 +1,9 @@
-const { Bixby, sleep, isPrivate } = require("../lib/");
+const { Bixby, sleep, isPublic } = require("../lib/");
 
 Bixby(
   {
     pattern: "request",
-    fromMe: isPrivate,
+    fromMe: isPublic,
     desc: "request something to dev",
     type: "misc",
   },
