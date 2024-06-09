@@ -2,7 +2,7 @@ const {
   Bixby,
   fromMe,
   sleep,
-  isPrivate
+  isPublic
 } = require("../lib/")
 
 
@@ -49,7 +49,7 @@ function formatTime(seconds) {
 
 Bixby({
       pattern: "ping",
-      fromMe: isPrivate,
+      fromMe: isPublic,
       desc: "To check ping",
       type: "user",
   },
@@ -94,7 +94,7 @@ Bixby({
 );
 Bixby({
       pattern: "uptime",
-      fromMe: isPrivate,
+      fromMe: isPublic,
       desc: "To check uptime",
       type: "user",
   },
@@ -139,7 +139,7 @@ Bixby({
 
 Bixby({
     pattern: "iswa",
-    fromMe: isPrivate,
+    fromMe: isPublic,
     desc: "To check uptime",
     type: "user",
 }, async (message, match) => {
