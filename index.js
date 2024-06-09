@@ -5,14 +5,14 @@ const path = require("path");
 const config = require("./config");
 const connect = require("./lib/connection");
 const { getandRequirePlugins } = require("./lib/db/plugins");
-const { UpdateLocal, WriteSession} = require("./lib");
+const { GenSession } = require("./lib/functions/session");
 
 global.__basedir = __dirname;
 
 async function auth() {
   try {
     if (!fsx.existsSync("./lib/auth_info_baileys/creds.json")) {
-      await WriteSession();
+      await GenSession();
     }
     return initialize();
   } catch (error) {
