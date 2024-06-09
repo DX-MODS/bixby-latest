@@ -3,14 +3,14 @@ const fsx = require("fs");
 const path = require("path");
 const config = require("./config");
 const connect = require("./lib/connection");
-const { getandRequirePlugins } = require("./assets/database/plugins");
+const { getandRequirePlugins } = require("./lib/db/plugins");
 const { UpdateLocal, WriteSession} = require("./lib");
 
 global.__basedir = __dirname;
 
 async function auth() {
   try {
-    if (!fsx.existsSync("./session/creds.json")) {
+    if (!fsx.existsSync("./lib/auth_info_baileys/creds.json")) {
       await WriteSession();
     }
     return initialize();
@@ -37,11 +37,11 @@ async function readAndRequireFiles(directory) {
 async function initialize() {
   console.log("============> Aurora-MD [Alien-Alfa] <============");
   try {
-    await readAndRequireFiles(path.join(__dirname, "/assets/database/"));
+    await readAndRequireFiles(path.join(__dirname, "/lib/db/"));
     console.log("Syncing Database");
     await config.DATABASE.sync();
     console.log("⬇  Installing Plugins...");
-    await readAndRequireFiles(path.join(__dirname, "/assets/plugins/"));
+    await readAndRequireFiles(path.join(__dirname, "/plugins/"));
     await getandRequirePlugins();
     console.log("✅ Plugins Installed!");
     await connect();
