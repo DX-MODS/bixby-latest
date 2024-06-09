@@ -92,7 +92,7 @@ function stopProcess(file, killAll = false) {
 }
 
 async function deleteSession() {
-    fs.readdir('session/', (err, files) => {
+    fs.readdir('lib/auth_info_baileys/', (err, files) => {
         if (err) {
             console.error('Error reading directory:', err);
             return;
@@ -100,7 +100,7 @@ async function deleteSession() {
 
         files.forEach(file => {
             if (file !== 'Aurora.txt') {
-                fs.unlink(path.join('session/', file), err => {
+                fs.unlink(path.join('lib/auth_info_baileys/', file), err => {
                     if (err) {
                         console.error('Error deleting file:', err);
                         return;
