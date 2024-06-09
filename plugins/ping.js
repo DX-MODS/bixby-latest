@@ -3,7 +3,7 @@ const {
   fromMe,
   sleep,
   isPrivate
-} = require("../lib")
+} = require("../lib/")
 
 
 function formatTime(seconds) {
