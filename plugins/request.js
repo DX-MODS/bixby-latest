@@ -3,7 +3,7 @@ const { Bixby, sleep, isPublic } = require("../lib/");
 Bixby(
   {
     pattern: "request",
-    fromMe: true,
+    fromMe: isPublic,
     desc: "request something to dev",
     type: "misc",
   },
