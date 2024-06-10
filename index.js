@@ -5,7 +5,7 @@ const path = require("path");
 const config = require("./config");
 const connect = require("./lib/connection");
 const { getandRequirePlugins } = require("./lib/db/plugins");
-const { GenSession } = require("./lib/functions/session");
+const { GenSession } = require("./lib/functions");
 
 global.__basedir = __dirname;
 
