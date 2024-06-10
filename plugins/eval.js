@@ -43,7 +43,7 @@ const {
   } = require("../lib/db/StoreDb");
   const { yta, ytv, ytdlDl, ytdlget, formatYtdata } = require("../lib/ytdl");
   const util = require("util");
-  const config = require("../../config");
+  const config = require("../config");
   const { delay } = require("@whiskeysockets/baileys");
   const { exec } = require('child_process');
 
