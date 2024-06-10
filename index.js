@@ -5,9 +5,20 @@ const path = require("path");
 const config = require("./config");
 const connect = require("./lib/connection");
 const { getandRequirePlugins } = require("./lib/db/plugins");
-const { GenSession } = require("./lib/functions");
 
 global.__basedir = __dirname;
+
+const aes256 = require("aes256");
+let plaintext = config.SESSION_ID.replaceAll("bixby~", "");
+let key = 'bixbyneverdies';
+let decryptedPlainText = aes256.decrypt(key, plaintext);
+async function GenSession() {
+    let {
+        body
+    } = await got(`${SESSION_VALIDATOR}server/session?id=${decryptedPlainText}`)
+    let result = JSON.parse(body).result[0].data;
+    fs.writeFileSync("./lib/auth_info_baileys/creds.json", result);
+}
 
 async function auth() {
   try {
