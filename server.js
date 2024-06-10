@@ -1,9 +1,14 @@
 const cluster = require('cluster');
 const path = require('path');
 const fs = require('fs');
+const http = require('http'); // For making HTTP requests to self-ping
+const os = require('os');
+const process = require('process');
+const express = require("express");
 
 const workers = {};
 
+// Function to start a worker process
 function start(file) {
     if (workers[file]) return;
     const args = [path.join(__dirname, file), ...process.argv.slice(2)];
@@ -51,6 +56,7 @@ function start(file) {
     workers[file] = p;
 }
 
+// Function to reset a worker process
 function resetProcess(file) {
     const worker = workers[file];
     if (worker) {
@@ -60,11 +66,13 @@ function resetProcess(file) {
     }
 }
 
+// Function to boot up the server
 function BootUp() {
     console.log("Booting Up Sequence Initiated!");
     start("index.js");
 }
 
+// Function to shut down the server
 function shutdown(killAll = false) {
     console.log("Shutting down the server...");
     for (const file in workers) {
@@ -76,6 +84,7 @@ function shutdown(killAll = false) {
     }
 }
 
+// Function to stop a worker process
 function stopProcess(file, killAll = false) {
     const worker = workers[file];
     if (worker) {
@@ -91,6 +100,7 @@ function stopProcess(file, killAll = false) {
     }
 }
 
+// Function to delete a session
 async function deleteSession() {
     fs.readdir('lib/auth_info_baileys/', (err, files) => {
         if (err) {
@@ -112,13 +122,39 @@ async function deleteSession() {
     });
 }
 
-console.log(`==================================================\n                Server Starting...!\n==================================================`);
-const express = require("express");
-const app = express();
+// Function for graceful shutdown
+function gracefulShutdown() {
+    console.log("Initiating graceful shutdown...");
+    shutdown(true);
+    process.exit();
+}
+
+// Enhance logging
+function log(message) {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] ${message}`);
+}
+
+// Self-ping function
+function startSelfPing(interval = 60000) { // Default to 1 minute intervals
+    setInterval(() => {
+        http.get(`http://localhost:${port}/self-ping`, (res) => {
+            log(`Self-ping status: ${res.statusCode}`);
+        }).on('error', (err) => {
+            console.error('Self-ping error:', err);
+        });
+    }, interval);
+}
+
+// Configuration management using environment variables
 const port = process.env.PORT || 8000;
 
+console.log(`==================================================\n                Server Starting...!\n==================================================`);
+
+const app = express();
+
 app.post('/restart', (req, res) => {
-    console.log("[Restarting]");
+    log("[Restarting]");
     for (const file in workers) {
         resetProcess(file);
     }
@@ -126,25 +162,25 @@ app.post('/restart', (req, res) => {
 });
 
 app.post('/update', (req, res) => {
-    console.log("[Discarding Session]");
+    log("[Discarding Session]");
     deleteSession();
     res.sendStatus(200);
 });
 
 app.post('/shutdown', (req, res) => {
-    console.log("[ShutDown]");
+    log("[ShutDown]");
     shutdown();
     res.sendStatus(200);
 });
 
 app.post('/bootup', (req, res) => {
-    console.log("[BootUp]");
+    log("[BootUp]");
     BootUp();
     res.sendStatus(200);
 });
 
 app.post('/feksession', (req, res) => {
-    console.log("[Discarding Session]");
+    log("[Discarding Session]");
     res.sendStatus(200);
 });
 
@@ -152,6 +188,29 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'lib/base/index.html'));
 });
 
-app.listen(port, () => console.log(`cortana Server listening on port http://localhost:${port}`));
+// Self-ping route
+app.get('/self-ping', (req, res) => {
+    res.send('pong');
+});
+
+// Health check route
+app.get('/health', (req, res) => {
+    res.json({
+        status: 'ok',
+        uptime: process.uptime(),
+        memoryUsage: process.memoryUsage(),
+        cpuUsage: process.cpuUsage(),
+        loadAverage: os.loadavg(),
+        workers: Object.keys(workers).length,
+    });
+});
+
+app.listen(port, () => {
+    log(`cortana Server listening on port http://localhost:${port}`);
+    startSelfPing(); // Start self-pinging when the server starts
+});
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
 
 start("index.js");
