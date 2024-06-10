@@ -7,7 +7,7 @@ Bixby(
     fromMe: true,
     desc: "Save or Give Status Updates",
     dontAddCommandList: true,
-    type: "Tool",
+    type: "tool",
   },
   async (message, match, m) => {
     try {
