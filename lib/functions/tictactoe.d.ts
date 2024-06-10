@@ -1,3 +1,9 @@
+/* Copyright (C) 2024 DX-MODS.
+Licensed under the MIT License;
+you may not use this file except in compliance with the License.
+WhatsBixby - Ziyan
+*/
+
 export declare class TicTacToe {
     /* X PlayerName */
     playerX: string;
