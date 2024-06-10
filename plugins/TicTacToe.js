@@ -41,7 +41,7 @@ Bixby(
   },
   async (message, match, m) => {
     {
-      let TicTacToe = require("../../lib/tictactoe");
+      let TicTacToe = require("../lib/functions/tictactoe");
       this.game = this.game ? this.game : {};
       if (
         Object.values(this.game).find(
