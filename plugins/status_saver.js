@@ -1,5 +1,4 @@
 const {command, isPrivate } = require("../lib");
-const config = require("../config");
 
 
 Bixby(
