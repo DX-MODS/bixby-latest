@@ -35,7 +35,7 @@ Bixby(
 Bixby(
   {
     pattern: "ttt",
-    fromMe: isPrivate,
+    fromMe: isPublic,
     desc: "Play TicTacToe",
     type: "game",
   },
