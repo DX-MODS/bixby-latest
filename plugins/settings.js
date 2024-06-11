@@ -1,11 +1,11 @@
 const {
-  command,
+  Bixby,
   isAdmin,
   parsedJid,
-  isPrivate,
+  isPublic,
   getBuffer,
   fromMe
-} = require("../../lib");
+} = require("../lib");
 const {
   callAction,
   PDM,
@@ -13,8 +13,8 @@ const {
   UserBan,
   banbot,
   GroupDB
-} = require("../database");
-const config = require("../../config");
+} = require("../lib/db");
+const config = require("../config");
 const {
   delay
 } = require("@whiskeysockets/baileys");
@@ -49,9 +49,9 @@ function formatDate(inputDate) {
 }
 
 
-command({
+Bixby({
      pattern: "snapshot",
-     fromMe: isPrivate,
+     fromMe: isPublic,
      desc: "Save a snapshot of the Group setings",
   },
   async (message, match) => {
@@ -351,7 +351,7 @@ Saved:
 
 
   });
-command({
+Bixby({
      pattern: "settings",
      fromMe: true,
      desc: "Show All Additional Settings",
@@ -390,9 +390,9 @@ command({
 
   });
 
-command({
+Bixby({
      pattern: "pdm",
-     fromMe: isPrivate,
+     fromMe: isPublic,
      desc: "Promote Demote Messages",
      dontAddCommandList: true,
   },
@@ -428,9 +428,9 @@ command({
   });
 
 
-command({
+Bixby({
      pattern: "banbot",
-     fromMe: isPrivate,
+     fromMe: isPublic,
      desc: "Ban other Bots in group",
      dontAddCommandList: true,
   },
@@ -464,7 +464,7 @@ command({
 
   });
 
-command({
+Bixby({
      on: "message",
      fromMe: false,
      dontAddCommandList: true
@@ -507,7 +507,7 @@ command({
   });
 
 
-command({
+Bixby({
      on: "message",
      fromMe: false,
      dontAddCommandList: true
@@ -549,7 +549,7 @@ command({
   });
 
 
-command({
+Bixby({
      pattern: "callblock",
      fromMe: true,
      desc: "Call blocking",
@@ -584,11 +584,11 @@ command({
 
   });
 
-command(
+Bixby(
 
   {
      pattern: "#ban",
-     fromMe: isPrivate,
+     fromMe: isPublic,
      desc: "Ban a sticker in group",
   },
   async (message, match) => {
@@ -647,9 +647,9 @@ command(
 );
 
 
-command({
+Bixby({
      pattern: "#unban",
-     fromMe: isPrivate,
+     fromMe: isPublic,
      desc: "Unban a sticker in group",
   },
   async (message, match) => {
@@ -707,11 +707,11 @@ command({
 );
 
 
-command(
+Bixby(
 
   {
      pattern: "stickban",
-     fromMe: isPrivate,
+     fromMe: isPublic,
      desc: "Ban a sticker in group",
   },
   async (message, match) => {
@@ -743,9 +743,9 @@ command(
 );
 
 
-command({
+Bixby({
      pattern: "stickunban",
-     fromMe: isPrivate,
+     fromMe: isPublic,
      desc: "Unban a sticker in group",
   },
   async (message, match) => {
