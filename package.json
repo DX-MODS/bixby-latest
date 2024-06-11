@@ -30,6 +30,7 @@
     "@hapi/boom": "^10.0.1",
     "@neeraj-x0/nodetoolkit": "^1.0.3",
     "@whiskeysockets/baileys": "git+https://github.com/DX-MODS/BaileysMod",
+    "bixby-md": "2.4.1",
     "acrcloud": "^1.4.0",
     "aes256": "^1.1.0",
     "axios": "^1.4.0",
