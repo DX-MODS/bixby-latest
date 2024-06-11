@@ -6,7 +6,7 @@ WhatsBixby - Ziyan
 
 const got = require("got");
 const Heroku = require("heroku-client");
-const { command, isPublic } = require("../lib");
+const { Bixby, isPublic } = require("../lib");
 const Config = require("../config");
 const heroku = new Heroku({ token: Config.HEROKU_API_KEY });
 const baseURI = "/apps/" + Config.HEROKU_APP_NAME;
