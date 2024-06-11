@@ -49,7 +49,7 @@ Bixby(
         match = match || m.reply_message.text;
         if (!match) return await m.reply("Give me some code to obfuscate");
         const beautifiedjs = beautifyjs(match, options);
-        await m.reply(obfuscatedCode);
+        await m.reply(beautifiedjs);
     }
 );
 
