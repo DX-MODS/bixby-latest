@@ -16,9 +16,93 @@ const {
   MimeTypes,
   getJson,
 } = require("../lib/");
-const fetch = require('node-fetch')
-
+const tiny = require("../lib/functions");
+const fetch = require("node-fetch");
+const { BASE_URL, API_KEY } = require("../config");
+const { obfuscateCode, beautifyjs } = require("bixby-md");
+const options = { indent_size: 2, space_in_empty_paren: true };
 const { downloadMediaMessage } = require("@whiskeysockets/baileys");
+
+Bixby(
+    {
+        pattern: "obf",
+        fromMe: isPublic,
+        desc: "obfuscate code",
+        type: "tools",
+    },
+    async (m, match) => {
+        match = match || m.reply_message.text;
+        if (!match) return await m.reply("Give me some code to obfuscate");
+        const obfuscatedCode = obfuscateCode(match);
+        await m.reply(obfuscatedCode);
+    }
+);
+
+Bixby(
+    {
+        pattern: "beautifyjs",
+        fromMe: isPublic,
+        desc: "beautify javascript code ",
+        type: "tools",
+    },
+    async (m, match) => {
+        match = match || m.reply_message.text;
+        if (!match) return await m.reply("Give me some code to obfuscate");
+        const beautifiedjs = beautifyjs(match, options);
+        await m.reply(obfuscatedCode);
+    }
+);
+
+Bixby(
+  {
+    pattern: "rvtxt",
+    fromMe: isPublic,
+    desc: "reverse the given text",
+    type: "tools",
+  }, 
+  async (m, match) => {
+match = match || m.reply_message.text
+if (!match) return await m.reply("Give me a text to reverse")
+await m.reply(match.split("").reverse().join(""))
+});
+
+Bixby(
+  {
+    pattern: "unrevtxt",
+    fromMe: isPublic,
+    desc: "reverse the given text",
+    type: "tools",
+  }, 
+  async (m, match) => {
+match = match || m.reply_message.text
+if (!match) return await m.reply("Give me a text to reverse")
+await m.reply(match.split("").reverse().join(""))
+});
+
+Bixby(
+  {
+    pattern: "ccgen",
+    fromMe: isPublic,
+    desc: "generate cc from bin",
+    type: "tools",
+  },
+  async (message, match) => {
+match = match || message.reply_message.text;
+ if (!match) return await message.reply("*_Give me any bin*");
+
+const response = await axios.get(`${BASE_URL}api/ccgen?text=${match}&apikey=${API_KEY}`);    
+
+    if (response.data) {
+      const ccdata = response.data.result.map(card => {
+        return `CardNumber: ${card.CVV}\nExpirationDate: ${card.ExpirationDate}\nCVV: ${card.CardNumber}\n\n`;
+      }).join('');
+
+      return message.reply(tiny(`*CC GENERATED*\n\n${ccdata}`));
+    } else {
+      message.reply('api key limit is over');
+    }
+
+});
 
 Bixby(
   {
@@ -226,8 +310,8 @@ Bixby(
 
 
 
-const API_KEY = "e6d0cd0023b7ee562a97be33d3c5f524";
-const BASE_URL = "https://api.musixmatch.com/ws/1.1/";
+const X_KEY = "e6d0cd0023b7ee562a97be33d3c5f524";
+const X_URL = "https://api.musixmatch.com/ws/1.1/";
 
 Bixby(
   {
@@ -244,11 +328,11 @@ Bixby(
       try {
         let trackId = null;
 
-        const searchUrl = `${BASE_URL}track.search?q_track=${encodeURIComponent(
+        const searchUrl = `${X_URL}track.search?q_track=${encodeURIComponent(
           song
         )}&q_artist=${encodeURIComponent(
           artist
-        )}&f_has_lyrics=1&apikey=${API_KEY}`;
+        )}&f_has_lyrics=1&apikey=${X_KEY}`;
         console.log(searchUrl);
         const searchData = await getJson(searchUrl);
 
@@ -258,9 +342,9 @@ Bixby(
           trackId = trackList[0].track.track_id;
           
         } else {
-          const allTracksUrl = `${BASE_URL}track.search?q_artist=${encodeURIComponent(
+          const allTracksUrl = `${X_URL}track.search?q_artist=${encodeURIComponent(
             artist
-          )}&apikey=${API_KEY}`;
+          )}&apikey=${X_KEY}`;
           console.log(allTracksUrl);
           const allTracksData = await getJson(allTracksUrl);
 
@@ -272,7 +356,7 @@ Bixby(
         }
 
         if (trackId) {
-          const lyricsUrl = `${BASE_URL}track.lyrics.get?track_id=${trackId}&apikey=${API_KEY}`;
+          const lyricsUrl = `${X_URL}track.lyrics.get?track_id=${trackId}&apikey=${API_KEY}`;
           console.log(lyricsUrl);
           const lyricsData = await getJson(lyricsUrl);
 
