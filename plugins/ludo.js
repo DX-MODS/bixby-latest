@@ -1,10 +1,10 @@
-  const { command, isPrivate } = require("../../lib");
+  const { Bixby, isPublic } = require("../lib");
   let db = {};
 
-  command(
+  Bixby(
     {
       pattern: "lud",
-      fromMe: isPrivate,
+      fromMe: isPublic,
       desc: "play ludo",
       type: "user",
     },
