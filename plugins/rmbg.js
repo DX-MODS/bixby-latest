@@ -6,7 +6,7 @@ WhatsBixby - Ziyan
 
 const { Bixby, isPublic } = require("../lib");
 const { rmbg } = require("../lib/functions");
-const config = require("../../config");
+const config = require("../config");
 
 Bixby(
   {
