@@ -191,7 +191,7 @@ Bixby(
 Bixby(
   {
     pattern: "warn",
-    fromMe: isPrivate,
+    fromMe: true,
     desc: "Warn a user",
   },
   async (message, match) => {
@@ -229,7 +229,7 @@ Bixby(
 Bixby(
   {
     pattern: "resetwarn",
-    fromMe: isPrivate,
+    fromMe: true,
     desc: "Reset warnings for a user",
   },
   async (message) => {
