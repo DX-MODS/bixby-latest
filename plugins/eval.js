@@ -47,7 +47,7 @@ const {
     saveChat,
     getName,
   } = require("../lib/db/StoreDb");
-  const { yta, ytv, ytdlDl, ytdlget, formatYtdata } = require("../lib/ytdl");
+  const { yta, ytv, ytdlDl, ytdlget, formatYtdata } = require("../lib/functions/ytdl");
   const util = require("util");
   const config = require("../config");
   const { delay } = require("@whiskeysockets/baileys");
