@@ -5,7 +5,7 @@ WhatsBixby - Ziyan
 */
 
 const { Bixby, isPublic } = require("../lib");
-const { removeBg } = require("../lib/functions");
+const { rmbg } = require("../lib/functions");
 const config = require("../../config");
 
 Bixby(
@@ -25,7 +25,7 @@ Bixby(
         
       return await message.reply("Reply to an image");
     let buff = await m.quoted.download();
-    let buffer = await removeBg(buff);
+    let buffer = await rmbg(buff);
     if (!buffer) return await message.reply("An error occured");
     await message.sendMessage(
       message.jid,
