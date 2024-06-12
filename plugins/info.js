@@ -6,7 +6,7 @@ const { BASE_URL, API_KEY } = require("../config");
 
 Bixby(
   {
-    pattern: "city",	
+    pattern: "city",  
     fromMe: isPublic,
     desc: "get data of any city",
     type: "information",
@@ -23,13 +23,25 @@ Bixby(
 
     try {
       const response = await axios.post(url, data);
-      const ipinfo = response.data;  // Extract the relevant part of the response
+      const ipinfo = response.data;
+
+      if (ipinfo.error) {
+        return await message.reply("Failed to fetch city data.");
+      }
+
+      // Extracting the needed information
+      const cityData = ipinfo.data;
+      const populationInfo = cityData.populationCounts.map(dx => 
+        `Year: ${dx.year}, Population: ${dx.value}, Sex: ${dx.sex}, Reliability: ${dx.reliabilty}`
+      ).join('\n');
+
+      const caption = `City: ${cityData.city}\nCountry: ${cityData.country}\nPopulation Data:\n${populationInfo}`;
 
       await message.client.sendMessage(message.jid, {
         image: {
           url: ipimg,
         },
-        caption: ipinfo,  // Assuming `tiny` is a function to format the info
+        caption: caption,  // Sending the formatted string
       }, {
         quoted: message,
       });
@@ -39,6 +51,7 @@ Bixby(
     }
   }
 );
+
 
 
 Bixby(
