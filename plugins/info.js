@@ -29,7 +29,7 @@ Bixby(
         image: {
           url: ipimg,
         },
-        caption: tiny(ipinfo),  // Assuming `tiny` is a function to format the info
+        caption: ipinfo,  // Assuming `tiny` is a function to format the info
       }, {
         quoted: message,
       });
