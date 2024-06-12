@@ -4,6 +4,41 @@ const fetch = require("node-fetch");
 const tiny = require("../lib/functions/fancy");
 const { BASE_URL, API_KEY } = require("../config");
 
+Bixby(
+  {
+    pattern: "city",	
+    fromMe: isPublic,
+    desc: "get data of any city",
+    type: "information",
+  },
+  async (message, match) => {
+    match = match || message.reply_message.text;
+    if (!match) return await message.reply("*_Give me any city_*");
+    
+    const ipimg = "https://graph.org/file/7e3dbae9d2a31c75e5bd6.jpg";
+    const url = 'https://countriesnow.space/api/v0.1/countries/population/cities';
+    const data = {
+      city: match
+    };
+
+    try {
+      const response = await axios.post(url, data);
+      const ipinfo = response.data;  // Extract the relevant part of the response
+
+      await message.client.sendMessage(message.jid, {
+        image: {
+          url: ipimg,
+        },
+        caption: tiny(ipinfo),  // Assuming `tiny` is a function to format the info
+      }, {
+        quoted: message,
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      await message.reply("Failed to fetch city data.");
+    }
+  }
+);
 
 
 Bixby(
