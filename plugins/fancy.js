@@ -5,7 +5,7 @@ WhatsBixby - Ziyan
 */
 
 const { Bixby, isPublic } = require("../lib/");
-const { listall } = require("../lib/functions/fancy");
+const { listall } = require("../lib/functions/");
 
 Bixby(
   {
