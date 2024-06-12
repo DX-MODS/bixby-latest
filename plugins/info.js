@@ -1,7 +1,7 @@
 const { Bixby, isPublic } = require("../lib/");
 const axios = require("axios")
 const fetch = require("node-fetch");
-const tiny = require("../lib/functions/");
+const tiny = require("../lib/functions/fancy");
 const { BASE_URL, API_KEY } = require("../config");
 
 Bixby(
